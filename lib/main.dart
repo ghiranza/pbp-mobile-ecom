@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vbucks_store/menu.dart';
+import 'package:vbucks_store/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.deepPurple,
-        ).copyWith(secondary: Colors.deepPurple[400]),
+          primarySwatch: Colors.blue,
+        ).copyWith(secondary: Colors.blue[400]),
         useMaterial3: true,
       ),
       home: MyHomePage(),

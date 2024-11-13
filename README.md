@@ -48,7 +48,7 @@ GridView.count(
 => dan berikut potongan kode untuk pemberian ikon dan teks pada tombol:
 ```python
 final List<ItemHomepage> items = [
-  ItemHomepage("Lihat Daftar V-Bucks", Icons.mood),
+  ItemHomepage("Lihat Daftar V-Bucks", Icons.list),
   ItemHomepage("Tambah V-Bucks", Icons.add),
   ItemHomepage("Logout", Icons.logout),
 ];
@@ -111,5 +111,55 @@ pertanyaan Tugas 7:
 4. Jelaskan perbedaan antara const dengan final!
 => const bersifat compile-time constant (harus diketahui saat kompilasi), sedangkan final adalah variabel yang nilainya diinisialisasi hanya sekali
    namun dapat diatur saat runtime.
+
+</details>
+
+
+
+<details>
+    <summary>TUGAS 8</summary>
+
+1.  Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+=> keyword const digunakan untuk mendefinisikan nilai atau widget yang sifatnya konstan dan tidak berubah. Kegunaan menggunakan const adalah dapat menghemat memori dan meningkatkan performa, karena Flutter hanya perlu menyimpan satu instance dari widget tersebut dan tidak perlu merender ulang ketika aplikasi di-rebuild. Const sebaiknya digunakan pada widget statis (misal: teks atau ikon yang tidak berubah, serta nilai tetap seperti warna atau padding yang konstan). Sedangkan const sebaiknya tidak digunakan untuk widget dinamis yang bergantung pada perubahan status atau input pengguna.
+
+2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+=> Column menyusun widget secara vertikal dari atas ke bawah, sedangkan row menyusun widget secara horizontal dari kiri ke kanan. Column cocok digunakan ketika ingin menempatkan elemen dalam susunan vertikal (form input dan daftar elemen), sedangkan row lebih cocok untuk elemen horizontal (baris item dan tombol tindakan).
+Berikut contoh implementasinya dalam kode saya:
+```
+Column(
+  children: [
+    Text('Item 1'),
+    Text('Item 2'),
+    Text('Item 3'),
+  ],
+);
+
+Row(
+  children: [
+    Icon(Icons.star),
+    Text('Starred Item'),
+  ],
+);
+```
+
+3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+=> elemen input yang saya gunakan 'TextFormField' untuk input VBucks, Description, dan VBucks Price. Elemen input Flutter lainnya yang tidak saya gunakan adalah checkbox, radio button, dropdownbutton, slider, dan switch. Saya tidak menggunakan elemen input tersebut karena dalam tugas ini form baru hanya membutuhkan teks dan angka untuk atribut item-item VBucks.
+
+4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+=> saya menggunakan properti _theme_ di 'MaterialApp' [main.dart], berikut kode nya:
+```
+theme: ThemeData(
+  primarySwatch: Colors.blue,
+  textTheme: TextTheme(
+    bodyText1: TextStyle(fontSize: 18, color: Colors.black),
+  ),
+),
+```
+tema diatur dengan menggunakan 'ThemeData'
+
+5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+=> pada aplikasi saya, navigasi diterapkan dengan Navigator.push dan Navigator.pushReplacement. Berikut contohnya:
+- Drawer menggunakan Navigator.pushReplacement untuk membuka halaman utama (MyHomePage) dan halaman form (VBucksEntryFormPage) [left_drawer.dart].
+- Ketika ItemCard untuk “Tambah VBucks” ditekan, aplikasi menggunakan Navigator.push untuk membuka halaman VBucksEntryFormPage [vbucks_cart.dart].
 
 </details>
