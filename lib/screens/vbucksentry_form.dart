@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-// TODO: Impor drawer yang sudah dibuat sebelumnya
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:vbucks_store/widgets/left_drawer.dart';
+import 'package:vbucks_store/screens/menu.dart';
 
 class VBucksEntryFormPage extends StatefulWidget {
   const VBucksEntryFormPage({super.key});
@@ -17,6 +20,7 @@ class _VBucksEntryFormPageState extends State<VBucksEntryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -135,10 +139,36 @@ class _VBucksEntryFormPageState extends State<VBucksEntryFormPage> {
                                 actions: [
                                   TextButton(
                                     child: const Text('OK'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      _formKey.currentState!.reset();
-                                    },
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
+                                          final response = await request.postJson(
+                                              "http://localhost:8000/create-flutter/",
+                                              jsonEncode(<String, String>{
+                                                  'vbucks': _vbucks,
+                                                  'vbucks_price': _vbucksPrice.toString(),
+                                                  'description': _description,
+                                              }),
+                                          );
+                                          if (context.mounted) {
+                                              if (response['status'] == 'success') {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                  content: Text("Mood baru berhasil disimpan!"),
+                                                  ));
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                                                  );
+                                              } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                      content:
+                                                          Text("Terdapat kesalahan, silakan coba lagi."),
+                                                  ));
+                                              }
+                                          }
+                                      }
+                                  },
                                   ),
                                 ],
                               );

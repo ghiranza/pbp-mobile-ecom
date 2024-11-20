@@ -163,3 +163,39 @@ tema diatur dengan menggunakan 'ThemeData'
 - Ketika ItemCard untuk “Tambah VBucks” ditekan, aplikasi menggunakan Navigator.push untuk membuka halaman VBucksEntryFormPage [vbucks_cart.dart].
 
 </details>
+
+<details>
+    <summary>TUGAS 9</summary>
+
+checklist Tugas 9:
+1. Memastikan deployment proyek tugas Django kamu telah berjalan dengan baik
+=> proyek tugas Django saya telah berjalan dengan baik
+
+2. Mengimplementasikan fitur registrasi akun pada proyek tugas Flutter 
+=> 
+
+pertanyaan Tugas 9:
+1. Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?
+=> membuat model untuk data JSON penting karena membantu kita mengorganisir data dengan lebih terstruktur dan memudahkan proses parsing data dari atau ke JSON. Dengan adanya model, kita dapat memetakan setiap atribut JSON ke dalam variabel yang sesuai di aplikasi kita. Tanpa model, kita akan kesulitan membaca data secara langsung, karena data JSON biasanya berupa string mentah yang perlu diurai secara manual. Jika kita tidak membuat model, aplikasi masih bisa berjalan, tetapi akan lebih rentan terhadap error parsing, terutama jika format JSON berubah atau menjadi kompleks.
+
+2. Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini.
+=> berkomunikasi dengan server melalui protokol HTTP. Dalam tugas ini, library http membantu mengirimkan request seperti GET, POST, PUT, atau DELETE ke server Django. Misalnya, saat mengambil data dari server, kita menggunakan http.get, dan saat mengirim data, kita menggunakan http.post. Library ini mempermudah proses pengiriman dan penerimaan data, serta menangani response dari server, termasuk parsing data JSON.
+
+3. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+=> menangani session pada aplikasi yang membutuhkan autentikasi. Ini memungkinkan aplikasi menyimpan dan mengelola cookie dari server sehingga status login pengguna dapat dipertahankan di berbagai komponen aplikasi. Instance CookieRequest perlu dibagikan ke seluruh komponen agar data session pengguna dapat digunakan secara konsisten di semua bagian aplikasi, misalnya untuk memeriksa apakah pengguna sudah login atau untuk mengakses API yang memerlukan autentikasi.
+
+4. Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.
+=> 
+- input di Flutter: user mengisi form atau memberikan input di aplikasi Flutter.
+- pengiriman ke Server: input ini dikemas menjadi JSON menggunakan http.post atau CookieRequest dan dikirim ke server Django.
+- proses di Django: django memproses data tersebut, menyimpannya ke database jika valid, atau mengembalikan error jika ada masalah.
+- response ke Flutter: server mengirimkan response (misalnya data yang telah disimpan atau status sukses/gagal).
+- menampilkan di Flutter: data yang diterima dari server diproses (di-mapping ke model) dan ditampilkan di aplikasi Flutter.
+
+5. Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+=>
+- login: user memasukkan datanya Flutter. Data ini dikirim ke endpoint login Django menggunakan POST. Django meverifikasi kredensial dengan mencocokkannya di database. Jika valid, Django mengembalikan token/session yang disimpan di aplikasi untuk autentikasi selanjutnya. Setelah itu, menu utama di Flutter dapat diakses.
+- Register: user mengisi form registrasi di Flutter. Data dikirim ke endpoint register Django. Django memproses data tersebut, membuat akun baru, dan mengembalikan respons sukses atau error jika data tidak valid.
+- Logout: Flutter mengirim request ke endpoint logout Django, yang akan menghapus session/token pengguna. Setelah logout, pengguna diarahkan kembali ke halaman login.
+
+</details>

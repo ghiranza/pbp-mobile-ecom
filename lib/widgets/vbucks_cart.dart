@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:vbucks_store/screens/vbucksentry_form.dart';
+import 'package:vbucks_store/screens/list_vbucksentry.dart';
+import 'package:vbucks_store/screens/login.dart';
 
 class ItemHomepage {
   final String name;
@@ -25,7 +29,7 @@ class ItemCard extends StatelessWidget {
 
       child: InkWell(
         // Aksi ketika kartu ditekan.
-        onTap: () {
+        onTap: () async {
           // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -34,9 +38,35 @@ class ItemCard extends StatelessWidget {
 
           // Navigate ke route yang sesuai (tergantung jenis tombol)
           if (item.name == "Tambah VBucks") {
-            if (item.name == "Tambah VBucks") {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const VBucksEntryFormPage()));
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const VBucksEntryFormPage()));
+          } else if (item.name == "Lihat VBucks") {
+            Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => const VBucksEntryPage()
+                ),
+            );
+          }
+          else if (item.name == "Logout") {
+            final response = await request.logout("http://localhost:8000/auth/logout/");
+            String message = response["message"];
+            if (context.mounted) {
+              if (response['status']) {
+                  String uname = response["username"];
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("$message Sampai jumpa, $uname."),
+                  ));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+              } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(message),
+                      ),
+                  );
+              }
             }
           }
         },
