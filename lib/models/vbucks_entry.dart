@@ -1,27 +1,26 @@
 // To parse this JSON data, do
 //
-//     final moodEntry = moodEntryFromJson(jsonString);
+//     final vbucksEntry = vbucksEntryFromJson(jsonString);
 
 import 'dart:convert';
 
-List<VBucksEntry> moodEntryFromJson(String str) =>
-    List<VBucksEntry>.from(json.decode(str).map((x) => MoodEntry.fromJson(x)));
+List<VBucksEntry> vbucksEntryFromJson(String str) => List<VBucksEntry>.from(json.decode(str).map((x) => VBucksEntry.fromJson(x)));
 
-String moodEntryToJson(List<MoodEntry> data) =>
+String vbucksEntryToJson(List<VBucksEntry> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class MoodEntry {
+class VBucksEntry {
   String model;
   String pk;
   Fields fields;
 
-  MoodEntry({
+  VBucksEntry({
     required this.model,
     required this.pk,
     required this.fields,
   });
 
-  factory MoodEntry.fromJson(Map<String, dynamic> json) => MoodEntry(
+  factory VBucksEntry.fromJson(Map<String, dynamic> json) => VBucksEntry(
         model: json["model"],
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),

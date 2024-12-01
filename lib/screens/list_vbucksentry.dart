@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vbucks_store/models/vbucks_entry.dart';
 import 'package:vbucks_store/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class VBucksEntryPage extends StatefulWidget {
   const VBucksEntryPage({super.key});
@@ -10,7 +12,7 @@ class VBucksEntryPage extends StatefulWidget {
 }
 
 class _VBucksEntryPageState extends State<VBucksEntryPage> {
-  Future<ListVBucksEntry>> fetchVBucks(CookieRequest request) async {
+  Future<List<VBucksEntry>> fetchVBucks(CookieRequest request) async {
     final response = await request.get('http://localhost:8000/json/');
     
     // Melakukan decode response menjadi bentuk json
