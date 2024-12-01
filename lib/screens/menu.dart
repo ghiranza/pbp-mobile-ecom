@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vbucks_store/widgets/left_drawer.dart';
-import 'package:vbucks_store/widgets/vbucks_cart.dart';
 
 class MyHomePage extends StatelessWidget {
   final String npm = '2306165944'; // NPM
@@ -83,9 +82,11 @@ class MyHomePage extends StatelessWidget {
                     // Agar grid menyesuaikan tinggi kontennya.
                     shrinkWrap: true,
                     // Menampilkan ItemCard untuk setiap item dalam list items.
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item);
-                    }).toList(),
+                    children: [
+                      ItemCard(items[0], Colors.blue), // Tombol Lihat Daftar Produk
+                      ItemCard(items[1], Colors.green), // Tombol Tambah Produk
+                      ItemCard(items[2], Colors.red), // Tombol Logout
+                    ],
                   ),
                 ],
               ),
@@ -129,4 +130,48 @@ class InfoCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class ItemCard extends StatelessWidget {
+  // Widget kartu item dengan warna latar belakang dan ikon.
+
+  final ItemHomepage item; // Item yang ditampilkan di kartu.
+  final Color color; // Warna latar belakang kartu.
+
+  const ItemCard(this.item, this.color, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      // Mengatur warna latar belakang kartu sesuai parameter color.
+      color: color,
+      child: InkWell(
+        onTap: () {
+          // Tambahkan logika aksi pada tombol di sini
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(item.icon, color: Colors.white),
+            const SizedBox(height: 8.0),
+            Text(
+              item.title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Tambahkan class ItemHomepage jika belum ada
+class ItemHomepage {
+  final String title;
+  final IconData icon;
+
+  ItemHomepage(this.title, this.icon);
 }
